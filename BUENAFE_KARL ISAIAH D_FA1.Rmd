@@ -1,20 +1,9 @@
 ---
-title: "BUENAFE FA1"
-output:
-  pdf_document: default
-  html_document:
-    df_print: paged
-date: "2024-02-01"
+title: "Untitled"
+output: github_document
 ---
-
-```{r setup, include=FALSE}
-install.packages("e1071", repos = "https://cran.r-project.org")
-install.packages('ggplot2')
-
-library(e1071)
-library(ggplot2)
-
-Result= read.csv('C:/Users/edtech4/Documents/BUENR/data.csv')
+```{r setup}
+Result= read.csv('/Users/periperipapi/Downloads/data.csv')
 Result
 ```
 
@@ -22,7 +11,7 @@ Result
 ##the four examination subjects in results.txt (results.csv). What can you say about
 ##these data?
 
-```{r arch1 skew}
+```{r arch1 skew, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
 skewarch1<- skewness(Result$arch1, na.rm=TRUE)
 cat("Skewness", skewarch1, "\n")
 
@@ -79,7 +68,7 @@ ggplot(Result, aes(x=prog2), na.rm=TRUE)+geom_density( fill="orange", color="bla
 #2. For the class of 50 students of computing detailed in Exercise 1.1, use R to
 
 ```{r No.2}
-Result2= read.csv('C:/Users/edtech4/Documents/BUENR/fa1_no2.csv')
+Result2= read.csv('/Users/periperipapi/Documents/rstudio/fa1_no2.csv')
 Result2
 ```
 
