@@ -1,7 +1,7 @@
 ---
-title: "Untitled"
+title: "FA 1 BUENAFE"
 output:
-  html_document:
+  word_document:
     df_print: paged
 ---
 ```{r setup}
