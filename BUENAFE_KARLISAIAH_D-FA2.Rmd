@@ -1,0 +1,149 @@
+---
+title: "BUENAFE FA2"
+output:
+pdf_document: default
+editor_options:
+  markdown:
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+
+```
+
+
+1. Use R to illustrate that the probability of getting:
+
+(a) a head is 0.5 if a fair coin is tossed repeatedly;
+```{r COIN}
+trials=1000
+
+head_vector=numeric(trials)
+
+#simulating trials
+for (i in 1:trials) {
+  # (a) Probability of getting a head when a fair coin is tossed repeatedly:
+  coin_tosses=sample(c("H", "T"), i, replace = TRUE)
+  head_vector[i]=mean(coin_tosses == "H")
+}
+
+dframe1=data.frame(Trials = 1:trials,
+                 Prob_Head = head_vector)
+
+ggplot(dframe1, aes(x = Trials)) +
+geom_line(aes(y = Prob_Head, color = "Head")) +
+labs(title = "Probability of getting a head on a coin toss",
+x = "Trials",
+y = "Probability",
+color = "Event",
+caption = "Simulated with increasing number of trials") +
+scale_color_manual(values = c("steelblue")) +
+theme_minimal()
+
+```
+(b) a red card is 0.5 if cards are drawn repeatedly with replacement from awell-shuffled deck;
+```{r CARD} 
+trials=1000
+
+Red_vector=numeric(trials)
+
+#simulating trials
+for (i in 1:trials) {
+  # (a) Probability of getting a head when a fair coin is tossed repeatedly:
+  card_draws=sample(c("Black", "Red"), i, replace = TRUE)
+  Red_vector[i]=mean( card_draws == "Red")
+}
+
+dframe2=data.frame(Trials = 1:trials,
+                 Prob_Red = Red_vector)
+
+ggplot(dframe2, aes(x = Trials)) +
+geom_line(aes(y = Prob_Red, color = "Head")) +
+labs(title = "Probability of drawing Red cards",
+x = "Trials",
+y = "Probability",
+color = "Event",
+caption = "Simulated with increasing number of trials") +
+scale_color_manual(values = c("red")) +
+theme_minimal()
+
+```
+
+
+(c) an even number is 0.5 if a fair die is rolled repeatedly.
+```{r DICE}
+trials=1000
+
+even_vector=numeric(trials)
+
+#simulating trials
+for (i in 1:trials) {
+  # (a) Probability of getting a head when a fair coin is tossed repeatedly:
+  dice_roll=sample(c("Even", "Odd"), i, replace = TRUE)
+  even_vector[i]=mean( dice_roll == "Even")
+}
+
+dframe3=data.frame(Trials = 1:trials,
+                 dice_roll = even_vector)
+
+ggplot(dframe3, aes(x = Trials)) +
+geom_line(aes(y = dice_roll, color = "Even numbers")) +
+labs(title = "Probability of getting an even number",
+x = "Trials",
+y = "Probability",
+color = "Event",
+caption = "Simulated with increasing number of trials") +
+scale_color_manual(values = c("green")) +
+theme_minimal()
+
+```
+
+3. 4. Amy and Jane are gambling together. A fair coin is tossed repeatedly. Each time a head comes up, Amy wins two euro from Jane, and each time a tail comes up, Amy loses two euro to Jane. Use R to simulate this game 100 times, and estimate:
+
+(a) the number of times that Amy is ahead in these 100 tosses;
+
+```{r 4a}
+numtrial= 100
+
+A_ahead= 0
+
+for (i in 1:numtrial){
+  coin_toss=sample(0:1,1, replace=T)
+
+if (coin_toss==1){
+  A_ahead[i]=1
+}else {
+  A_ahead[i]=-1
+}
+}
+a_total=sum(A_ahead)
+print(paste("The total number that Amy was ahead in ",numtrial," trials is ",a_total))
+```
+ 
+(b) how much Amy has won or lost after 100 tosses.
+```{r 4b}
+numtrial= 100
+
+A_winnings= numeric(numtrial)
+J_winnings= numeric(numtrial)
+
+
+for (i in 1:numtrial){
+  coin_toss=sample(c("H","T"),1, replace=T)
+
+if (coin_toss=="H"){
+  A_winnings[i]=2
+  J_winnings[i]=-2
+}else {
+  A_winnings[i]=-2
+  J_winnings[i]=2
+}
+}
+Amy_Winnings = sum(A_winnings)
+Jane_Winnings = sum(J_winnings)
+
+Amy_Winnings
+Jane_Winnings
+```
+Amy won a total of 8 euros on their bet
