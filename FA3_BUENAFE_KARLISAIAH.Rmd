@@ -1,0 +1,84 @@
+---
+title: "FA3 BUENAFE"
+output: html_document
+date: "2024-02-23"
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+```
+
+2.  A binary communication channel carries data as one of two sets of signals denoted by 0 and 1. Owing to noise, a transmitted 0 is sometimes received as a 1, and a transmitted 1 is sometimes received as a 0. For a given channel, it can be assumed that a transmitted 0 is correctly received with probability 0.95, and a transmitted 1 is correctly received with probability 0.75. Also, 70% of all messages are transmitted as a 0. If a signal is sent, determine the probability that:
+
+(a) a 1 was received;
+
+```{r 2}
+transmitted_0=0.7
+transmitted_1=1-transmitted_0
+receiving_1=0.75
+not_receiving_1=0.25
+receiving_0=0.95
+
+#a 1 was received;
+Pr_1= (transmitted_0*(1-receiving_0))+receiving_1*transmitted_1
+Pr_1
+
+#a 1 was transmitted given than a 1 was received. 
+Pg1_1r <- (transmitted_1 * receiving_1) / Pr_1
+Pg1_1r
+
+dframe= data.frame(
+  Event= c("A 1 was received", "A 1 was transmitted given that a 1 was received"),
+  Probability = c(Pr_1, Pg1_1r)
+)
+
+# Create a bar plot using ggplot
+dframe <- data.frame(
+  Events = c("Probability that a 1 was received", "Probability that a 1 was transmitted given that a 1 was received"),
+  Probabilities = c(Pr_1, Pg1_1r)
+)
+
+ggplot(dframe, aes(x = Events, y = Probabilities, fill = Events))+
+  geom_bar(stat = "identity") +
+  labs(title = "Probabilities",
+       y = "Probability", ) +
+  theme_minimal()
+
+```
+
+7.  There are three employees working at an IT company: Jane, Amy, and Ava, doing 10%, 30%, and 60% of the programming, respectively. 8% of Jane’s work, 5% of Amy’s work, and just 1% of Ava‘s work is in error. What is the overall percentage of error? If a program is found with an error, who is the most likely person to have written it? 
+
+```{r 7}
+Jane=0.1
+Amy=0.3
+Ava=0.6
+ErrorJane=0.08
+ErrorAmy=0.05
+ErrorAva=0.01
+
+Total_error=Jane*ErrorJane+Amy*ErrorAmy+Ava*ErrorAva
+
+print("Total percentage of error:")
+print(Total_error*100)
+
+Prob_JaneError=(Jane*ErrorJane)/Total_error
+Prob_AmyError=(Amy*ErrorAmy)/Total_error
+Prob_AvaError=(Ava*ErrorAva)/Total_error
+
+Prob_JaneError
+Prob_AmyError
+Prob_AvaError
+
+dframe2 <- data.frame(
+  Events = c("Jane Probability of Error", "Amy Probability of Error","Ava Probability of Error"),
+  Probabilities = c(Prob_JaneError, Prob_AmyError, Prob_AvaError )
+)
+
+ggplot(dframe2, aes(x = Events, y = Probabilities, fill = Events))+
+  geom_bar(stat = "identity") +
+  labs(title = "Probabilities",
+       y = "Probability", ) +
+  theme_minimal()
+```
+AMY IS THE ONE WHO IS MOST LIKELY TO HAVE WRITTEN THE ERROR WITH A PROBABILITY OF 51.7%
+
