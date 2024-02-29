@@ -1,0 +1,70 @@
+---
+title: "FA 6"
+output: html_document
+date: "2024-02-28"
+---
+
+```{r setup}
+library(stats)
+library(ggplot2)
+```
+
+
+```{r geom}
+p=0.2
+rv=1000
+
+n= rgeom(1000,p)
+head(n)
+
+mean_n=mean(n)
+var_n=var(n)
+sd_n=sd(n)
+
+cat("Mean:","\n")
+mean_n
+cat("Variance:","\n")
+var_n
+cat("SD:","\n")
+sd_n
+```
+
+```{r pressure, echo=FALSE}
+ggplot(data.frame(x = n), aes(x)) +
+  geom_histogram(binwidth = 1, fill = "pink", color='darkblue') +
+  labs(title = "Histogram of Geometric Distribution",
+       x = "Number of Trials",
+       y = "Frequency")
+```
+
+Consider a plant manufacturing IC chips of which 10% are expected to be defective. The chips are packed in boxes for export. Before transportation, a sample is drawn from each box. Estimate the probability that the sample contains more than 10% defectives, when:
+
+A sample of 10 is selected from a box of 40;
+```{r hypergeom}
+
+total <- 40
+defective <- 0.1 * 40
+sample <- 10
+
+
+prob10=dhyper(0:(0.1*sample),defective, total-defective, sample)
+prob10
+
+morethan10=1- sum(prob10)
+morethan10
+```
+
+```{r}
+
+total <- 5000
+defective <- 0.1 * 5000
+sample <- 10
+
+
+prob10=dhyper(0:(0.1*sample),defective, total-defective, sample)
+
+morethan10=1- sum(prob10)
+morethan10
+```
+
+ 
